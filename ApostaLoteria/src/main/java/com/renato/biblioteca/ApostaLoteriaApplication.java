@@ -18,7 +18,7 @@ import com.renato.biblioteca.repositories.ApostadorRepository;
 import com.renato.biblioteca.repositories.NumeroRepository;
 
 @SpringBootApplication
-public class MegaSenaApplication implements CommandLineRunner{
+public class ApostaLoteriaApplication implements CommandLineRunner{
 
 	@Autowired
 	private ApostadorRepository apostadorRepository;
@@ -28,7 +28,7 @@ public class MegaSenaApplication implements CommandLineRunner{
 	private NumeroRepository numeroRepository;
 	
 	public static void main(String[] args) {
-		SpringApplication.run(MegaSenaApplication.class, args);
+		SpringApplication.run(ApostaLoteriaApplication.class, args);
 	}
 
 	@Override
@@ -43,15 +43,18 @@ public class MegaSenaApplication implements CommandLineRunner{
 		Aposta a3 = new Aposta(null, sdf.parse("27/04/1999 17:59"), ap2);
 		Aposta a4 = new Aposta(null, sdf.parse("14/08/1998 20:55"), ap3);
 		
+		Numero n1 = new Numero(null, 3, a1);
+		Numero n2 = new Numero(null, 5, a1);
+		Numero n3 = new Numero(null, 7, a1);
+		
+		ap1.getApostas().addAll(Arrays.asList(a1,a2));
+		ap2.getApostas().addAll(Arrays.asList(a3));
+		ap3.getApostas().addAll(Arrays.asList(a4));
+		
+		a1.getNumeros().addAll(Arrays.asList(n1,n2,n3));
+		
 		apostadorRepository.saveAll(Arrays.asList(ap1,ap2,ap3));
 		apostaRepository.saveAll(Arrays.asList(a1, a2,a3,a4));
-		
-		List<Numero> numeros = new ArrayList<>();
-		for(Integer i = 1;i<=60;i++) {
-			Numero numero = new Numero(i);
-			numeros.add(numero);
-		}
-		
-		numeroRepository.saveAll(numeros);
+		numeroRepository.saveAll(Arrays.asList(n1,n2,n3));
 	}
 }

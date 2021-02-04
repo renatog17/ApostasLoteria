@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Aposta implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,9 +24,11 @@ public class Aposta implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date data;
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="apostador_id")
 	private Apostador apostador;
+	@JsonManagedReference
 	@OneToMany(mappedBy = "aposta")
 	private List<Numero> numeros = new ArrayList<>();
 	
@@ -60,6 +65,14 @@ public class Aposta implements Serializable{
 
 	public void setApostador(Apostador apostador) {
 		this.apostador = apostador;
+	}
+	
+	public List<Numero> getNumeros() {
+		return numeros;
+	}
+
+	public void setNumeros(List<Numero> numeros) {
+		this.numeros = numeros;
 	}
 
 	@Override
