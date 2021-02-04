@@ -10,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Aposta implements Serializable{
@@ -24,8 +24,7 @@ public class Aposta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="apostador_id")
 	private Apostador apostador;
-	
-	@ManyToMany(mappedBy = "apostas")
+	@OneToMany(mappedBy = "aposta")
 	private List<Numero> numeros = new ArrayList<>();
 	
 	public Aposta() {

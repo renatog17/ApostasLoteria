@@ -1,34 +1,37 @@
 package com.renato.biblioteca.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Numero {
 	
 	@Id
+	private Integer id;
 	private Integer numero;
-	
-	@ManyToMany
-	@JoinTable(name = "APOSTA_NUMERO",
-		joinColumns = @JoinColumn(name = "numero_id"), 
-		inverseJoinColumns = @JoinColumn(name = "aposta_id")
-	)
-	private List<Aposta> apostas = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn (name = "aposta_id")
+	private Aposta aposta;
 	
 	public Numero() {
 		
 	}
-	
-	public Numero(Integer numero) {
+
+	public Numero(Integer id, Integer numero, Aposta aposta) {
 		super();
-		this.setNumero(numero);
+		this.id = id;
+		this.numero = numero;
+		this.aposta = aposta;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getNumero() {
@@ -39,11 +42,19 @@ public class Numero {
 		this.numero = numero;
 	}
 
+	public Aposta getAposta() {
+		return aposta;
+	}
+
+	public void setAposta(Aposta aposta) {
+		this.aposta = aposta;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -56,14 +67,11 @@ public class Numero {
 		if (getClass() != obj.getClass())
 			return false;
 		Numero other = (Numero) obj;
-		if (numero == null) {
-			if (other.numero != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!numero.equals(other.numero))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
-	
-	
 }
