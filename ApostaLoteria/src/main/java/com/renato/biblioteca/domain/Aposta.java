@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -24,11 +25,12 @@ public class Aposta implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date data;
-	@JsonBackReference
+	//@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="apostador_id")
 	private Apostador apostador;
-	@JsonManagedReference
+	//@JsonManagedReference
 	@OneToMany(mappedBy = "aposta")
 	private List<Numero> numeros = new ArrayList<>();
 	

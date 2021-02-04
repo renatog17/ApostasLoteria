@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Numero {
@@ -16,7 +17,8 @@ public class Numero {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer numero;
-	@JsonBackReference
+	//@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "aposta_id")
 	private Aposta aposta;
