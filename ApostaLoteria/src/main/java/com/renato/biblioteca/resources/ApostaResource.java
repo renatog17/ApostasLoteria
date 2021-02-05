@@ -16,15 +16,15 @@ import com.renato.biblioteca.services.ApostadorService;
 @RestController
 public class ApostaResource {
 
-	@Autowired
-	private ApostadorService apostadorService;
+	//@Autowired
+	//private ApostadorService apostadorService;
 	@Autowired
 	private ApostaService apostaService;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> gerarAposta(@RequestBody Apostador apostador){
-		Apostador apostadorBusca = apostadorService.buscar(apostador.getEmail());
-		Aposta aposta = apostaService.gerarAposta(apostadorBusca.getEmail());
+		//Apostador apostadorBusca = apostadorService.buscar(apostador.getEmail());
+		Aposta aposta = apostaService.gerarAposta(apostador.getEmail());
 		return ResponseEntity.ok().body(aposta);
 	}
 }

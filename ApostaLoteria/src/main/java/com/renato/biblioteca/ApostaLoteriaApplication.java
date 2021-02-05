@@ -38,11 +38,11 @@ public class ApostaLoteriaApplication implements CommandLineRunner{
 		Apostador ap2 = new Apostador("456@456.456", "Fulano Alecrim da Silva", "456", "456");
 		Apostador ap3 = new Apostador("789@789.789", "Elisabeth Rainha Da Inglaterra", "789", "789");
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		Aposta a1 = new Aposta(null, sdf.parse("17/08/1998 17:59"), ap1);
-		Aposta a2 = new Aposta(null, sdf.parse("17/08/1998 18:03"), ap1);
-		Aposta a3 = new Aposta(null, sdf.parse("27/04/1999 17:59"), ap2);
-		Aposta a4 = new Aposta(null, sdf.parse("14/08/1998 20:55"), ap3);
+		//SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Aposta a1 = new Aposta(null, System.currentTimeMillis(), ap1);
+		Aposta a2 = new Aposta(null, System.currentTimeMillis(), ap1);
+		Aposta a3 = new Aposta(null, System.currentTimeMillis(), ap2);
+		Aposta a4 = new Aposta(null, System.currentTimeMillis(), ap3);
 		
 		Numero n1 = new Numero(null, 3, a1);
 		Numero n2 = new Numero(null, 5, a1);

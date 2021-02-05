@@ -23,7 +23,7 @@ public class Aposta implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Date data;
+	private Long data;
 	//@JsonBackReference
 	@JsonIgnore
 	@ManyToOne
@@ -37,7 +37,7 @@ public class Aposta implements Serializable{
 		
 	}
 
-	public Aposta(Integer id, Date data, Apostador apostador) {
+	public Aposta(Integer id, Long data, Apostador apostador) {
 		super();
 		this.id = id;
 		this.data = data;
@@ -52,11 +52,11 @@ public class Aposta implements Serializable{
 		this.id = id;
 	}
 
-	public Date getData() {
+	public Long getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(Long data) {
 		this.data = data;
 	}
 

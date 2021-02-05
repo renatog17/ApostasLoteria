@@ -25,18 +25,13 @@ public class ApostaService {
 	ApostadorService apostadorService;
 	
 	public Aposta gerarAposta(String email){
-		Date dataEHoraAtual = new Date();
+		/*Date dataEHoraAtual = new Date();
 		String data = new SimpleDateFormat("dd/MM/yyyy").format(dataEHoraAtual);
 		String hora = new SimpleDateFormat("HH:mm").format(dataEHoraAtual);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");*/
 		
 		Aposta aposta = null;
-		try {
-			aposta = new Aposta(null, sdf.parse(data+" "+hora), apostadorService.buscar(email));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		aposta = new Aposta(null, System.currentTimeMillis(), apostadorService.buscar(email));
 		aposta.setNumeros(gerarNumerosAleatorios(8, aposta));	
 		return apostaRepository.save(aposta);
 	}
