@@ -2,31 +2,29 @@ package com.renato.biblioteca.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.renato.biblioteca.domain.Aposta;
 import com.renato.biblioteca.domain.Apostador;
+import com.renato.biblioteca.services.ApostaService;
 import com.renato.biblioteca.services.ApostadorService;
 
+@RequestMapping(value = "/aposta")
 @RestController
-@RequestMapping(value = "/apostadores")
-public class ApostadorResource {
+public class ApostaResource {
 
 	@Autowired
 	private ApostadorService apostadorService;
-	
-	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable String email){
-		Apostador apostador = apostadorService.buscar(email);
-		return ResponseEntity.ok().body(apostador);
-	}
+	@Autowired
+	private ApostaService apostaService;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> gerarAposta(@RequestBody Apostador apostador){
 		Apostador apostadorBusca = apostadorService.buscar(apostador.getEmail());
-		return ResponseEntity.ok().body(apostadorBusca);
+		Aposta aposta = apostaService.gerarAposta(apostadorBusca.getEmail());
+		return ResponseEntity.ok().body(aposta);
 	}
 }

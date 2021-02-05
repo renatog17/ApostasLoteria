@@ -1,5 +1,6 @@
 package com.renato.biblioteca;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +33,7 @@ public class ApostaLoteriaApplication implements CommandLineRunner{
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) throws ParseException{
 		Apostador ap1 = new Apostador("123@123.123", "Renato Gomes de Oliveira", "123", "123");
 		Apostador ap2 = new Apostador("456@456.456", "Fulano Alecrim da Silva", "456", "456");
 		Apostador ap3 = new Apostador("789@789.789", "Elisabeth Rainha Da Inglaterra", "789", "789");

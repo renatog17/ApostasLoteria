@@ -15,6 +15,7 @@ public class Numero {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private Integer id;
 	private Integer numero;
 	//@JsonBackReference
