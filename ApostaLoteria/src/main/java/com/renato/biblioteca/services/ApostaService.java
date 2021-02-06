@@ -1,9 +1,6 @@
 package com.renato.biblioteca.services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -13,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.renato.biblioteca.domain.Aposta;
+import com.renato.biblioteca.domain.Apostador;
 import com.renato.biblioteca.domain.Numero;
 import com.renato.biblioteca.repositories.ApostaRepository;
 
@@ -23,19 +21,25 @@ public class ApostaService {
 	ApostaRepository apostaRepository;
 	@Autowired
 	ApostadorService apostadorService;
+	@Autowired
+	NumeroService numeroService;
 	
 	public Aposta gerarAposta(String email){
-		/*Date dataEHoraAtual = new Date();
-		String data = new SimpleDateFormat("dd/MM/yyyy").format(dataEHoraAtual);
-		String hora = new SimpleDateFormat("HH:mm").format(dataEHoraAtual);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");*/
-		
-		Aposta aposta = null;
-		aposta = new Aposta(null, System.currentTimeMillis(), apostadorService.buscar(email));
-		aposta.setNumeros(gerarNumerosAleatorios(8, aposta));	
-		return apostaRepository.save(aposta);
+		Aposta aposta = new Aposta(null, System.currentTimeMillis(), apostadorService.buscar(email));
+		List<Numero> numeros = gerarNumerosAleatorios(8, aposta);
+		aposta.getNumeros().addAll(numeros);
+		aposta = apostaRepository.save(aposta);
+		numeroService.salvarTodos(numeros);
+		//aposta.setNumeros(gerarNumerosAleatorios(8, aposta));	
+		return aposta;
 	}
 
+	public List<Aposta> buscarApostasPorEmail(String email) {
+		Apostador apostador = apostadorService.buscar(email);
+		List<Aposta> apostas = apostador.getApostas(); 
+		return apostas;
+	}
+	
 	private static List<Numero> gerarNumerosAleatorios(int qtdNumeros, Aposta aposta) {
 		Random rd = new Random();
 		Set<Integer> numerosAleatorios = new HashSet<>();
@@ -48,5 +52,4 @@ public class ApostaService {
 		}
 		return numeros;
 	}
-	
 }
