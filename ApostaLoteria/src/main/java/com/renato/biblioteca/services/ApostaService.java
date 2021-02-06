@@ -29,6 +29,7 @@ public class ApostaService {
 		Aposta aposta = new Aposta(null, System.currentTimeMillis(), apostadorService.buscar(email));
 		List<Numero> numeros = gerarNumerosAleatorios(8, aposta);
 		aposta.getNumeros().addAll(numeros);
+		//
 		aposta = apostaRepository.save(aposta);
 		numeroService.salvarTodos(numeros);
 		//aposta.setNumeros(gerarNumerosAleatorios(8, aposta));	
