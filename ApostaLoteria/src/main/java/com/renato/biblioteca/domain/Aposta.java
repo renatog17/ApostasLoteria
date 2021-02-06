@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Aposta implements Serializable{
+public class Aposta implements Serializable, Comparable<Aposta>{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -97,5 +97,15 @@ public class Aposta implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Aposta anotherAposta) {
+		if (this.data > anotherAposta.getData()) { 
+			return -1; 
+		} if (this.data > anotherAposta.getData()) { 
+			return 1; 
+		} 
+		return 0;
 	}
 }

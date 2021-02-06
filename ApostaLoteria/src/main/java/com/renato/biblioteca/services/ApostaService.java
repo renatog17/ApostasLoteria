@@ -1,6 +1,7 @@
 package com.renato.biblioteca.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -37,6 +38,8 @@ public class ApostaService {
 	public List<Aposta> buscarApostasPorEmail(String email) {
 		Apostador apostador = apostadorService.buscar(email);
 		List<Aposta> apostas = apostador.getApostas(); 
+		Collections.sort(apostas);
+		Collections.reverse(apostas);
 		return apostas;
 	}
 	
