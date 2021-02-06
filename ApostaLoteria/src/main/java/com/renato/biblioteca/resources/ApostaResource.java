@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.renato.biblioteca.domain.Aposta;
 import com.renato.biblioteca.domain.Apostador;
+import com.renato.biblioteca.dto.ApostaDTO;
 import com.renato.biblioteca.services.ApostaService;
-import com.renato.biblioteca.services.ApostadorService;
 
 @RequestMapping(value = "/aposta")
 @RestController
@@ -22,9 +22,9 @@ public class ApostaResource {
 	private ApostaService apostaService;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> gerarAposta(@RequestBody Apostador apostador){
-		//Apostador apostadorBusca = apostadorService.buscar(apostador.getEmail());
+	public ResponseEntity<ApostaDTO> gerarAposta(@RequestBody Apostador apostador){
 		Aposta aposta = apostaService.gerarAposta(apostador.getEmail());
-		return ResponseEntity.ok().body(aposta);
+		ApostaDTO apostaDTO = new ApostaDTO(aposta);
+		return ResponseEntity.ok().body(apostaDTO);
 	}
 }

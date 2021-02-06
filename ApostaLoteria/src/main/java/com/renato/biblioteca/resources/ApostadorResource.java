@@ -19,7 +19,7 @@ public class ApostadorResource {
 	private ApostadorService apostadorService;
 	
 	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable String email){
+	public ResponseEntity<Apostador> find(@PathVariable String email){
 		Apostador apostador = apostadorService.buscar(email);
 		return ResponseEntity.ok().body(apostador);
 	}
