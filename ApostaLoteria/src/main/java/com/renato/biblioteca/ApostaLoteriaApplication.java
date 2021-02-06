@@ -8,12 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.renato.biblioteca.domain.Aposta;
 import com.renato.biblioteca.domain.Apostador;
-import com.renato.biblioteca.domain.Numero;
-import com.renato.biblioteca.repositories.ApostaRepository;
 import com.renato.biblioteca.repositories.ApostadorRepository;
-import com.renato.biblioteca.repositories.NumeroRepository;
 
 @SpringBootApplication
 public class ApostaLoteriaApplication implements CommandLineRunner{
