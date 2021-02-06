@@ -1,18 +1,13 @@
 package com.renato.biblioteca.services;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.renato.biblioteca.domain.Aposta;
 import com.renato.biblioteca.domain.Apostador;
-import com.renato.biblioteca.domain.Numero;
 import com.renato.biblioteca.repositories.ApostaRepository;
 
 @Service
@@ -22,38 +17,21 @@ public class ApostaService {
 	ApostaRepository apostaRepository;
 	@Autowired
 	ApostadorService apostadorService;
-	@Autowired
-	NumeroService numeroService;
 	
-	public Aposta gerarAposta(String email){
-		Aposta aposta = new Aposta(null, System.currentTimeMillis(), apostadorService.buscar(email));
-		List<Numero> numeros = gerarNumerosAleatorios(8, aposta);
-		aposta.getNumeros().addAll(numeros);
-		//
-		aposta = apostaRepository.save(aposta);
-		numeroService.salvarTodos(numeros);
-		//aposta.setNumeros(gerarNumerosAleatorios(8, aposta));	
+	public Aposta gerarAposta(Apostador apostador){
+		if(!apostadorService.existe(apostador.getEmail())) {
+			apostadorService.salvar(apostador);
+		}
+		Aposta aposta = new Aposta(null, new Date(), apostadorService.buscar(apostador.getEmail()));
+		aposta = apostaRepository.save(aposta);	
 		return aposta;
 	}
 
 	public List<Aposta> buscarApostasPorEmail(String email) {
-		Apostador apostador = apostadorService.buscar(email);
-		List<Aposta> apostas = apostador.getApostas(); 
-		Collections.sort(apostas);
-		Collections.reverse(apostas);
+		//Apostador apostador = apostadorService.buscar(email);
+		List<Aposta> apostas = apostaRepository.listaPorData(email); 
+		//Collections.sort(apostas);
+		//Collections.reverse(apostas);
 		return apostas;
-	}
-	
-	private static List<Numero> gerarNumerosAleatorios(int qtdNumeros, Aposta aposta) {
-		Random rd = new Random();
-		Set<Integer> numerosAleatorios = new HashSet<>();
-		while(numerosAleatorios.size()<6) {
-			numerosAleatorios.add(rd.nextInt(60)+1);
-		}
-		List<Numero> numeros = new ArrayList<>();
-		for (Integer integer : numerosAleatorios) {
-			numeros.add(new Numero(null, integer, aposta));
-		}
-		return numeros;
 	}
 }

@@ -1,45 +1,50 @@
 package com.renato.biblioteca.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Aposta implements Serializable, Comparable<Aposta>{
+public class Aposta implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Long data;
+	private Date data;
 	//@JsonBackReference
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="apostador_id")
 	private Apostador apostador;
 	//@JsonManagedReference
-	@OneToMany(mappedBy = "aposta")
-	private List<Numero> numeros = new ArrayList<>();
-	
+	@ElementCollection
+	private Set<Integer> numerosAleatorios = new HashSet<>();
 	public Aposta() {
 		
 	}
 
-	public Aposta(Integer id, Long data, Apostador apostador) {
+	public Aposta(Integer id, Date data, Apostador apostador) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.apostador = apostador;
+		Random rd = new Random();
+		while(numerosAleatorios.size()<6) {
+			numerosAleatorios.add(rd.nextInt(60)+1);
+		}
 	}
 
 	public Integer getId() {
@@ -50,11 +55,11 @@ public class Aposta implements Serializable, Comparable<Aposta>{
 		this.id = id;
 	}
 
-	public Long getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(Long data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
@@ -66,12 +71,12 @@ public class Aposta implements Serializable, Comparable<Aposta>{
 		this.apostador = apostador;
 	}
 	
-	public List<Numero> getNumeros() {
-		return numeros;
+	public Set<Integer> getNumerosAleatorios() {
+		return numerosAleatorios;
 	}
 
-	public void setNumeros(List<Numero> numeros) {
-		this.numeros = numeros;
+	public void setNumerosAleatorios(Set<Integer> numerosAleatorios) {
+		this.numerosAleatorios = numerosAleatorios;
 	}
 
 	@Override
@@ -97,15 +102,5 @@ public class Aposta implements Serializable, Comparable<Aposta>{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	@Override
-	public int compareTo(Aposta anotherAposta) {
-		if (this.data > anotherAposta.getData()) { 
-			return -1; 
-		} if (this.data > anotherAposta.getData()) { 
-			return 1; 
-		} 
-		return 0;
 	}
 }

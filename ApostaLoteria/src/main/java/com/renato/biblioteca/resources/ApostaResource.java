@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.renato.biblioteca.domain.Aposta;
 import com.renato.biblioteca.domain.Apostador;
-import com.renato.biblioteca.dto.ApostaDTO;
 import com.renato.biblioteca.services.ApostaService;
 
 @RequestMapping(value = "/aposta")
@@ -26,18 +25,16 @@ public class ApostaResource {
 	private ApostaService apostaService;
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ApostaDTO> gerarAposta(@RequestBody Apostador apostador){
-		Aposta aposta = apostaService.gerarAposta(apostador.getEmail());
-		ApostaDTO apostaDTO = new ApostaDTO(aposta);
-		return ResponseEntity.ok().body(apostaDTO);
+	public ResponseEntity<Aposta> gerarAposta(@RequestBody Apostador apostador){
+		Aposta aposta = apostaService.gerarAposta(apostador);
+		//ApostaDTO apostaDTO = new ApostaDTO(aposta);
+		return ResponseEntity.ok().body(aposta);
 	}
 	
-	@RequestMapping(value = "/{email}")
-	public ResponseEntity<List<ApostaDTO>> listarApostasPorEmail(@PathVariable String email){
-		List<Aposta> apostas = apostaService.buscarApostasPorEmail(email);
-		List<ApostaDTO> apostasDTO = apostas.stream().map(obj -> new ApostaDTO(obj)).collect(Collectors.toList());
-		
-		return ResponseEntity.ok().body(apostasDTO);
+	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
+	public ResponseEntity<List<Aposta>> listarApostasPorEmail(@PathVariable String email){
+		List<Aposta> apostas = apostaService.buscarApostasPorEmail(email);	
+		return ResponseEntity.ok().body(apostas);
 	}
 	
 }

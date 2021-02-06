@@ -20,4 +20,15 @@ public class ApostadorService {
 		return apostador.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado!"
 				+ "Email: "+email+", Tipo: "+Apostador.class.getName()));
 	}
+	
+	public boolean existe(String email) {
+		if(apostadorRepository.existsById(email)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public Apostador salvar(Apostador apostador) {
+		return apostadorRepository.save(apostador);
+	}
 }
