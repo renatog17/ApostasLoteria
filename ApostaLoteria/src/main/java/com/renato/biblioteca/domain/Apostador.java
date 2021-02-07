@@ -20,7 +20,6 @@ public class Apostador implements Serializable{
 	//@JsonManagedReference
 	@OneToMany(mappedBy = "apostador")
 	private List<Aposta> apostas = new ArrayList<>();
-	//@Column(name = "listadequalquercoisa")
 	
 	public Apostador() {
 		

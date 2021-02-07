@@ -1,7 +1,6 @@
 package com.renato.biblioteca.resources;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,15 +18,12 @@ import com.renato.biblioteca.services.ApostaService;
 @RestController
 public class ApostaResource {
 
-	//@Autowired
-	//private ApostadorService apostadorService;
 	@Autowired
 	private ApostaService apostaService;
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Aposta> gerarAposta(@RequestBody Apostador apostador){
 		Aposta aposta = apostaService.gerarAposta(apostador);
-		//ApostaDTO apostaDTO = new ApostaDTO(aposta);
 		return ResponseEntity.ok().body(aposta);
 	}
 	

@@ -28,10 +28,7 @@ public class ApostaService {
 	}
 
 	public List<Aposta> buscarApostasPorEmail(String email) {
-		//Apostador apostador = apostadorService.buscar(email);
 		List<Aposta> apostas = apostaRepository.listaPorData(email); 
-		//Collections.sort(apostas);
-		//Collections.reverse(apostas);
 		return apostas;
 	}
 }
