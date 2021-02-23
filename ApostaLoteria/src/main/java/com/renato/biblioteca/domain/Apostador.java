@@ -17,7 +17,6 @@ public class Apostador implements Serializable{
 	private String nome;
 	private String telefone;
 	private String cpf;
-	//@JsonManagedReference
 	@OneToMany(mappedBy = "apostador")
 	private List<Aposta> apostas = new ArrayList<>();
 	

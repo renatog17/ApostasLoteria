@@ -24,14 +24,13 @@ public class Aposta implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date data;
-	//@JsonBackReference
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="apostador_id")
 	private Apostador apostador;
-	//@JsonManagedReference
 	@ElementCollection
 	private Set<Integer> numerosAleatorios = new HashSet<>();
+	
 	public Aposta() {
 		
 	}
