@@ -1,5 +1,7 @@
 package com.renato.biblioteca.resources;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.renato.biblioteca.domain.Apostador;
-import com.renato.biblioteca.dto.ApostadorDTO;
+import com.renato.biblioteca.dto.ApostadorNewDTO;
 import com.renato.biblioteca.services.ApostadorService;
 
 @RestController
@@ -26,8 +28,8 @@ public class ApostadorResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> cadastrarApostador(@RequestBody ApostadorDTO apostadorDto){
-		Apostador apostador = apostadorService.fromDto(apostadorDto);
+	public ResponseEntity<Void> cadastrarApostador(@Valid @RequestBody ApostadorNewDTO apostadorNewDto){
+		Apostador apostador = apostadorService.fromDto(apostadorNewDto);
 		apostadorService.salvar(apostador);
 		return ResponseEntity.noContent().build();
 	}

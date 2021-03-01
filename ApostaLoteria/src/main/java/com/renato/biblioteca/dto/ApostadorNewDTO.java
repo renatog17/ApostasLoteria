@@ -8,9 +8,9 @@ import org.hibernate.validator.constraints.Length;
 
 import com.renato.biblioteca.domain.Apostador;
 
-public class ApostadorDTO implements Serializable{
+public class ApostadorNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String email;
 	@NotEmpty(message = "Preenchimento obrigatório!")
@@ -18,34 +18,51 @@ public class ApostadorDTO implements Serializable{
 	@NotEmpty
 	@Length(min = 11, max = 11, message = "O tamanho do telefone precisa ter 11 caracteres")
 	private String telefone;
+	@NotEmpty
+	@Length(min = 11, max = 11, message = "O tamanho do cpf precisa ter 11 caracteres")
+	private String cpf;
 	
-	public ApostadorDTO() {
+	public ApostadorNewDTO() {
 		super();
 	}
 
-	public ApostadorDTO(Apostador apostador) {
+	public ApostadorNewDTO(Apostador apostador) {
 		super();
 		this.email = apostador.getEmail();
 		this.nome = apostador.getNome();
 		this.telefone = apostador.getTelefone();
+		this.cpf = apostador.getCpf();
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getTelefone() {
 		return telefone;
 	}
+
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}	
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 }
