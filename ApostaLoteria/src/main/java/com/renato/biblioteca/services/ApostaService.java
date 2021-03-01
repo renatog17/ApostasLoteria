@@ -22,7 +22,7 @@ public class ApostaService {
 		if(!apostadorService.existe(apostador.getEmail())) {
 			apostadorService.salvar(apostador);
 		}
-		Aposta aposta = new Aposta(null, new Date(), apostadorService.buscar(apostador.getEmail()));
+		Aposta aposta = new Aposta(null, new Date(), apostadorService.find(apostador.getEmail()));
 		aposta = apostaRepository.save(aposta);	
 		return aposta;
 	}

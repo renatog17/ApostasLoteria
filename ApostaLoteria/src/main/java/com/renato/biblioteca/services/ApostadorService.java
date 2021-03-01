@@ -17,7 +17,7 @@ public class ApostadorService {
 	@Autowired
 	private ApostadorRepository apostadorRepository;
 	
-	public Apostador buscar (String email) {
+	public Apostador find (String email) {
 		Optional<Apostador> apostador = apostadorRepository.findById(email);
 		return apostador.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado!"
 				+ "Email: "+email+", Tipo: "+Apostador.class.getName()));
@@ -34,14 +34,21 @@ public class ApostadorService {
 		return apostadorRepository.save(apostador);
 	}
 	
+	public void update (Apostador apostador) {
+		Apostador newApostador = find(apostador.getEmail());
+		apostador.setEmail(newApostador.getEmail());
+		apostador.setCpf(newApostador.getCpf());
+		apostadorRepository.save(apostador);
+	}
+	
 	public Apostador fromDto(ApostadorNewDTO apostadorNewDto) {
 		Apostador apostador = new Apostador(apostadorNewDto.getEmail(), apostadorNewDto.getNome(), apostadorNewDto.getTelefone(), apostadorNewDto.getCpf());
 		return apostador;
 	}
 	
-	/*public Apostador fromDto(ApostadorDTO apostadorDto) {
-		Apostador apostador = new Apostador(apostadorDto.getEmail(), apostadorDto.getNome(), apostadorDto.getTelefone());
+	public Apostador fromDto(ApostadorDTO apostadorDto) {
+		Apostador apostador = new Apostador(null, apostadorDto.getNome(), apostadorDto.getTelefone(), null);
 		return apostador;
-	}*/
+	}
 	
 }

@@ -12,8 +12,6 @@ public class ApostadorDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty(message = "Preenchimento obrigatório!")
-	private String email;
-	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String nome;
 	@NotEmpty
 	@Length(min = 11, max = 11, message = "O tamanho do telefone precisa ter 11 caracteres")
@@ -25,16 +23,8 @@ public class ApostadorDTO implements Serializable{
 
 	public ApostadorDTO(Apostador apostador) {
 		super();
-		this.email = apostador.getEmail();
 		this.nome = apostador.getNome();
 		this.telefone = apostador.getTelefone();
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getNome() {
 		return nome;
