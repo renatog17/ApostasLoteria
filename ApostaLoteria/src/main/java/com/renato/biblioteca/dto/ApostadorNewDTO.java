@@ -2,6 +2,7 @@ package com.renato.biblioteca.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -11,7 +12,9 @@ import com.renato.biblioteca.domain.Apostador;
 public class ApostadorNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	
 	@NotEmpty(message = "Preenchimento obrigatório!")
+	@Email
 	private String email;
 	@NotEmpty(message = "Preenchimento obrigatório!")
 	private String nome;
