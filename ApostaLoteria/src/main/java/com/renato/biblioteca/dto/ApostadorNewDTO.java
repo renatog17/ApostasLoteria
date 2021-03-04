@@ -8,7 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.renato.biblioteca.domain.Apostador;
+import com.renato.biblioteca.services.validation.ApostadorInsert;
 
+@ApostadorInsert
 public class ApostadorNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
