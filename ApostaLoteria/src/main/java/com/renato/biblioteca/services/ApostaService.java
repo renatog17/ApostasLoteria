@@ -19,10 +19,8 @@ public class ApostaService {
 	ApostadorService apostadorService;
 	
 	public Aposta gerarAposta(Apostador apostador){
-		if(!apostadorService.existe(apostador.getEmail())) {
-			apostadorService.salvar(apostador);
-		}
-		Aposta aposta = new Aposta(null, new Date(), apostadorService.find(apostador.getEmail()));
+		apostador = apostadorService.findByEmail(apostador.getEmail());
+		Aposta aposta = new Aposta(null, new Date(), apostadorService.findByEmail(apostador.getEmail()));
 		aposta = apostaRepository.save(aposta);	
 		return aposta;
 	}

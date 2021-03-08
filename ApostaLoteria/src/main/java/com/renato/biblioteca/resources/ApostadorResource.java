@@ -29,7 +29,7 @@ public class ApostadorResource {
 	
 	@RequestMapping(value = "/{email}", method = RequestMethod.GET)
 	public ResponseEntity<Apostador> buscar(@PathVariable String email){
-		Apostador apostador = apostadorService.find(email);
+		Apostador apostador = apostadorService.findByEmail(email);
 		return ResponseEntity.ok().body(apostador);
 	}
 	
@@ -46,8 +46,8 @@ public class ApostadorResource {
 	@RequestMapping(value = "/{email}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ApostadorDTO apostadorDto, @PathVariable String email){
 		Apostador apostador = apostadorService.fromDto(apostadorDto);
-		apostador.setEmail(email);
-		apostadorService.update(apostador);
+		//apostador.setEmail(email);
+		apostadorService.update(apostador, email);
 		return ResponseEntity.noContent().build();
 	}
 }
